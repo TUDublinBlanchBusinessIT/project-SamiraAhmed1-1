@@ -2,29 +2,28 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View, Text, TextInput, Button,  StyleSheet } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-import appstyles from './assets/appstyles.js'; // Import styles
-//import ColorPickerScreen from './components/colourpickerscreen';
+import appstyles from './assets/appstyles.js'; 
 import RegistrationScreen from './components/registerscreen'
-//import Homescreen from './components/Homescreen'
-//import RequestScreen from './components/Requestscreen'
-//import MessagesScreen from './components/MessagesScreen'
-//import ProfileScreen from './components/ProfileScreen'
+
+
+
+
+
+const Tab = createMaterialTopTabNavigator();
+
+
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>changed</Text>
-      <StatusBar style="auto" />
-    </View>
+
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Register" component={RegistrationScreen} />
+
+       
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
