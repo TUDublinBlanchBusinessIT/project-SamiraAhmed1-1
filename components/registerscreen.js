@@ -21,12 +21,14 @@ export default function LoginScreen({ navigation }) {
       {/* Logo */}
       <Image 
         source={require('../assets/BorrowBuddylogo.png')} // Ensure the logo.png file exists in this path
-        style={{ width: 100, height: 100, marginBottom: 20 }} 
+        style={{ width: 180, height: 180, marginBottom: 20 }} 
         resizeMode="contain"
       />
 
       {/* Title */}
-      <Text style={appstyles.title}>Login</Text>
+      
+      <Text style={appstyles.title}>BorrowBuddy</Text>
+      
 
       {/* Username Input */}
       <TextInput
@@ -46,8 +48,12 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Login Button */}
+      
       <Button title="Login" onPress={handleLogin} />
 
+  
+      <Button title="Sign Up!" onPress={handleLogin} color="green" />
+       
       {/* Forgot Password Link */}
       <TouchableOpacity onPress={handleForgotPassword} style={{ marginTop: 10 }}>
         <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
@@ -55,5 +61,8 @@ export default function LoginScreen({ navigation }) {
         </Text>
       </TouchableOpacity>
     </View>
+
+
+      
   );
 }
