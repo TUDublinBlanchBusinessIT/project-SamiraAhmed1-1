@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-na
 import { useNavigation } from '@react-navigation/native'; // Import the useNavigation hook
 import appstyles from '../assets/appstyles.js'; // Import your shared styles
 
-export default function RegisterScreen() { // Capitalized component name
+export default function RegisterScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation(); // Get navigation from the hook
@@ -12,8 +12,13 @@ export default function RegisterScreen() { // Capitalized component name
     // Simulate a login process
     alert(`Logging in with username: ${username}`);
     
-    // Navigate to Home screen after successful login
-    navigation.navigate('Homescreen'); // Or 'HomeScreen' based on your navigation setup
+    // Navigate to Homescreen after successful login
+    navigation.navigate('Homescreen');
+  };
+
+  const handleSignUp = () => {
+    // Navigate to SignUp screen
+    navigation.navigate('SignUp'); // Ensure 'SignUp' is defined correctly in App.js
   };
 
   const handleForgotPassword = () => {
@@ -25,7 +30,7 @@ export default function RegisterScreen() { // Capitalized component name
     <View style={appstyles.container}>
       {/* Logo */}
       <Image 
-        source={require('../assets/BorrowBuddylogo.png')} // Ensure the logo.png file exists in this path
+        source={require('../assets/BorrowBuddylogo.png')} 
         style={{ width: 180, height: 180, marginBottom: 20 }} 
         resizeMode="contain"
       />
@@ -54,7 +59,7 @@ export default function RegisterScreen() { // Capitalized component name
       <Button title="Login" onPress={handleLogin} />
 
       {/* Sign Up Button */}
-      <Button title="Sign Up!" onPress={() => navigation.navigate('Home')} color="green" />
+      <Button title="Sign Up!" onPress={handleSignUp} color="green" />
 
       {/* Forgot Password Link */}
       <TouchableOpacity onPress={handleForgotPassword} style={{ marginTop: 10 }}>
