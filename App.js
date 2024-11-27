@@ -1,55 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import RegisterScreen from './components/registerscreen'; // Import the RegisterScreen
-import HomeScreen from './components/Homescreen';  // Example screen
-import RequestScreen from './components/RequestScreen'; // Example screen
-import MessagesScreen from './components/MessagesScreen'; // Example screen
-import ProfileScreen from './components/ProfileScreen'; // Example screen
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import RegisterScreen from './components/registerscreen';
+import Homescreen from './components/Homescreen';
 
-const Tab = createMaterialTopTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  // Handle login logic
-  const handleLogin = () => {
-    setLoggedIn(true); // Simulate a successful login
-  };
-
   return (
     <NavigationContainer>
-      {loggedIn ? (
-        // Show tab navigator after login
-        <Tab.Navigator
-          screenOptions={{
-            tabBarStyle: {
-              backgroundColor: '#f8f8f8', // Tab bar background
-            },
-            tabBarIndicatorStyle: {
-              backgroundColor: '#007BFF', // Indicator color
-            },
-            tabBarActiveTintColor: '#007BFF', // Active tab text color
-            tabBarInactiveTintColor: '#999999', // Inactive tab text color
-          }}
-        >
-          {/* Your Tab Screens */}
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Requests" component={RequestScreen} />
-          <Tab.Screen name="Messages" component={MessagesScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator>
-      ) : (
-        // Show Login screen when not logged in
-        <RegisterScreen onLogin={handleLogin} />
-      )}
+      <Stack.Navigator initialRouteName="Register">
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Home" component={Homescreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-  
-
-
-
-

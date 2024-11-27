@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import the useNavigation hook
 import appstyles from '../assets/appstyles.js'; // Import your shared styles
 
-export default function LoginScreen({ navigation }) {
+export default function RegisterScreen() { // Capitalized component name
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation(); // Get navigation from the hook
 
   const handleLogin = () => {
-    // Add login logic here
+    // Simulate a login process
     alert(`Logging in with username: ${username}`);
+    
+    // Navigate to Home screen after successful login
+    navigation.navigate('Homescreen'); // Or 'HomeScreen' based on your navigation setup
   };
 
   const handleForgotPassword = () => {
-    // Add forgot password navigation here
+    // Add forgot password logic here
     alert('Redirecting to Forgot Password page');
   };
 
@@ -26,9 +31,7 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Title */}
-      
       <Text style={appstyles.title}>BorrowBuddy</Text>
-      
 
       {/* Username Input */}
       <TextInput
@@ -48,12 +51,11 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Login Button */}
-      
       <Button title="Login" onPress={handleLogin} />
 
-  
-      <Button title="Sign Up!" onPress={handleLogin} color="green" />
-       
+      {/* Sign Up Button */}
+      <Button title="Sign Up!" onPress={() => navigation.navigate('Home')} color="green" />
+
       {/* Forgot Password Link */}
       <TouchableOpacity onPress={handleForgotPassword} style={{ marginTop: 10 }}>
         <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
@@ -61,8 +63,5 @@ export default function LoginScreen({ navigation }) {
         </Text>
       </TouchableOpacity>
     </View>
-
-
-      
   );
 }
