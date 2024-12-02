@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
-export default function Homescreen({ route }) {
+export default function Homescreen({ route, navigation }) {
   // Extract username from route.params
   const { username } = route.params || {}; 
 
@@ -25,9 +25,15 @@ export default function Homescreen({ route }) {
       {/* Welcome Message */}
       <Text style={styles.welcomeText}>Welcome to BorrowBuddy{username ? `, ${username}` : ''}!</Text>
 
+      {/* Navigate to Request Screen */}
+      <Button
+        title="Go to Request Screen"
+        onPress={() => navigation.navigate('Request')} // Ensure 'Request' matches the name in App.js
+      />
+
       {/* Search Bar */}
       <TextInput
-        style={styles.searchBar} // Changed to use `styles`
+        style={styles.searchBar}
         placeholder="Search items..."
         value={searchQuery}
         onChangeText={setSearchQuery}
