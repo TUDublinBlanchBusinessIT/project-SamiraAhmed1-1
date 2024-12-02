@@ -2,34 +2,26 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
 export default function Homescreen({ route, navigation }) {
-  // Extract username from route.params
-  const { username } = route.params || {}; 
+  const { username } = route.params || {}; // Extract username
 
-  // Sample data for items
   const [items, setItems] = useState([
     { id: '1', name: 'Charger', distance: '0.5km', image: require('../assets/charger.jpg') },
     { id: '2', name: 'USB', distance: '0.5km', image: require('../assets/usb.jpg') },
     { id: '3', name: 'Calculator', distance: '0.5km', image: require('../assets/calculator.jpg') },
   ]);
 
-  // State for search query
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Filter items based on search query
-  const filteredItems = items.filter(item =>
+  const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <View style={styles.container}>
       {/* Welcome Message */}
-      <Text style={styles.welcomeText}>Welcome to BorrowBuddy{username ? `, ${username}` : ''}!</Text>
-
-      {/* Navigate to Request Screen */}
-      <Button
-        title="Go to Request Screen"
-        onPress={() => navigation.navigate('Request')} // Ensure 'Request' matches the name in App.js
-      />
+      <Text style={styles.welcomeText}>
+        Welcome to BorrowBuddy{username ? `, ${username}` : ''}!
+      </Text>
 
       {/* Search Bar */}
       <TextInput
@@ -39,10 +31,10 @@ export default function Homescreen({ route, navigation }) {
         onChangeText={setSearchQuery}
       />
 
-      {/* Item List */}
+      {/* FlatList */}
       <FlatList
         data={filteredItems}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <Image source={item.image} style={styles.itemImage} />
@@ -51,29 +43,28 @@ export default function Homescreen({ route, navigation }) {
               <Text style={styles.itemDistance}>Distance: {item.distance}</Text>
               <TouchableOpacity
                 style={styles.requestButton}
-                onPress={() => alert('Request pressed!')} // Adjust navigation logic as needed
+                onPress={() => alert(`Requested ${item.name}!`)}
               >
                 <Text style={styles.requestButtonText}>Request</Text>
               </TouchableOpacity>
             </View>
           </View>
         )}
+        ListEmptyComponent={<Text>No items found.</Text>} // Debug empty list
+      />
+
+      {/* Go to Request Screen Button */}
+      <Button
+        title="Go to Request Screen"
+        onPress={() => navigation.navigate('Request')} // Ensure 'Request' matches the screen name in App.js
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
+  container: { flex: 1, padding: 20, backgroundColor: '#ffffff' },
+  welcomeText: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
   searchBar: {
     height: 40,
     borderColor: '#ccc',
@@ -91,33 +82,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
-  itemImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 8,
-    marginRight: 10,
-  },
-  itemDetails: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  itemName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  itemDistance: {
-    fontSize: 14,
-    color: '#777',
-    marginBottom: 5,
-  },
+  itemImage: { width: 60, height: 60, borderRadius: 8, marginRight: 10 },
+  itemDetails: { flex: 1, justifyContent: 'center' },
+  itemName: { fontSize: 18, fontWeight: 'bold' },
+  itemDistance: { fontSize: 14, color: '#777', marginBottom: 5 },
   requestButton: {
     backgroundColor: '#007BFF',
     paddingVertical: 5,
     paddingHorizontal: 15,
     borderRadius: 5,
+    alignSelf: 'flex-start',
   },
-  requestButtonText: {
-    color: '#fff',
-    fontSize: 14,
-  },
+  requestButtonText: { color: '#fff', fontSize: 14, fontWeight: 'bold' },
 });
