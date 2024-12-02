@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function MessagesScreen({ navigation }) {
-  // Sample data for messages
   const [messages, setMessages] = useState([
     {
       id: '1',
@@ -24,12 +23,9 @@ export default function MessagesScreen({ navigation }) {
     },
   ]);
 
-  // Handle message press
+  // Navigate to ConversationScreen with selected message details
   const handlePress = (message) => {
-    alert(`Opening conversation with ${message.sender}`);
-    // Add navigation logic here to open the specific conversation screen
-    // Example:
-    // navigation.navigate('Conversation', { message });
+    navigation.navigate('Conversation', { message });
   };
 
   return (
