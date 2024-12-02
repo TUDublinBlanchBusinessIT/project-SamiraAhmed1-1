@@ -26,6 +26,12 @@ export default function RegisterScreen() {
     alert('Redirecting to Forgot Password page');
   };
 
+  const handleLogout = () => {
+    Alert.alert('Logged Out', 'You have been logged out successfully.');
+    navigation.navigate('Register'); // This navigates to the Register screen
+  };
+  
+
   return (
     <View style={appstyles.container}>
       {/* Logo */}
