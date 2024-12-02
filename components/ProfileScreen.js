@@ -16,7 +16,7 @@ export default function ProfileScreen({ navigation }) {
   });
 
   const handleEditProfile = () => {
-    Alert.alert('Edit Profile', 'This feature will be implemented soon!');
+    navigation.navigate('EditProfile', { user, setUser }); // Navigate to EditProfileScreen with user data
   };
 
   const handleLogout = () => {
