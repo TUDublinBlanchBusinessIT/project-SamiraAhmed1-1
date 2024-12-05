@@ -2,14 +2,51 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library
 
+// Function to display stars based on rating
+const renderStars = (rating) => {
+  let stars = [];
+  for (let i = 0; i < 5; i++) {
+    stars.push(
+      <Icon
+        key={i}
+        name={i < rating ? 'star' : 'star-o'}
+        size={18}
+        color="#FFD700"
+      />
+    );
+  }
+  return stars;
+};
+
 export default function Homescreen({ route, navigation }) {
   const { username } = route.params || {}; // Extract username
 
   // Sample items for the home screen
   const [items, setItems] = useState([
-    { id: '1', name: 'Charger', distance: '0.5km', image: require('../assets/charger.jpg') },
-    { id: '2', name: 'USB', distance: '0.5km', image: require('../assets/usb.jpg') },
-    { id: '3', name: 'Calculator', distance: '0.5km', image: require('../assets/calculator.jpg') },
+    {
+      id: '1',
+      name: 'Charger',
+      distance: '0.5km',
+      image: require('../assets/charger.jpg'),
+      owner: 'John Doe',
+      trustRating: 4,
+    },
+    {
+      id: '2',
+      name: 'USB',
+      distance: '0.5km',
+      image: require('../assets/usb.jpg'),
+      owner: 'Jane Smith',
+      trustRating: 5,
+    },
+    {
+      id: '3',
+      name: 'Calculator',
+      distance: '0.5km',
+      image: require('../assets/calculator.jpg'),
+      owner: 'Sam Wilson',
+      trustRating: 3,
+    },
   ]);
 
   // Search functionality for filtering items
@@ -52,10 +89,14 @@ export default function Homescreen({ route, navigation }) {
             <Image source={item.image} style={styles.itemImage} />
             <View style={styles.itemDetails}>
               <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemOwner}>Owner: {item.owner}</Text>
               <Text style={styles.itemDistance}>Distance: {item.distance}</Text>
+              <View style={styles.ratingContainer}>
+                {renderStars(item.trustRating)} {/* Trust rating with stars */}
+              </View>
               <TouchableOpacity
                 style={styles.requestButton}
-                onPress={() => alert(`Requested ${item.name}!`)} // Example action
+                onPress={() => alert(`Requested ${item.name} from ${item.owner}!`)} // Example action
               >
                 <Text style={styles.requestButtonText}>Request</Text>
               </TouchableOpacity>
@@ -135,10 +176,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', 
     color: '#00796B' 
   },
+  itemOwner: { 
+    fontSize: 14, 
+    color: '#607D8B', 
+    marginBottom: 5 
+  },
   itemDistance: { 
     fontSize: 14, 
     color: '#607D8B', 
     marginBottom: 5 
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    marginBottom: 5,
   },
   requestButton: {
     backgroundColor: '#FF9800', // Orange background for button
