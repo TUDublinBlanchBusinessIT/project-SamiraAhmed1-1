@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import the useNavigation hook
 import appstyles from '../assets/appstyles.js'; // Import your shared styles
 
@@ -11,7 +11,6 @@ export default function RegisterScreen() {
   const handleLogin = () => {
     // Simulate a login process
     alert(`Logging in with username: ${username}`);
-    
     // Navigate to Homescreen after successful login
     navigation.navigate('Homescreen');
   };
@@ -30,23 +29,22 @@ export default function RegisterScreen() {
     Alert.alert('Logged Out', 'You have been logged out successfully.');
     navigation.navigate('Register'); // This navigates to the Register screen
   };
-  
 
   return (
-    <View style={appstyles.container}>
+    <View style={styles.container}>
       {/* Logo */}
       <Image 
         source={require('../assets/BorrowBuddylogo.png')} 
-        style={{ width: 180, height: 180, marginBottom: 20 }} 
+        style={styles.logo} 
         resizeMode="contain"
       />
 
       {/* Title */}
-      <Text style={appstyles.title}>BorrowBuddy</Text>
+      <Text style={styles.title}>BorrowBuddy</Text>
 
       {/* Username Input */}
       <TextInput
-        style={appstyles.input}
+        style={styles.input}
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
@@ -54,7 +52,7 @@ export default function RegisterScreen() {
 
       {/* Password Input */}
       <TextInput
-        style={appstyles.input}
+        style={styles.input}
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
@@ -76,3 +74,40 @@ export default function RegisterScreen() {
     </View>
   );
 }
+
+// Updated Styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    padding: 20,
+  },
+  logo: {
+    width: 250,
+    height: 250,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#4CAF50', // Green title
+  },
+  input: {
+    width: '80%', // Reduced width for a more compact appearance
+    height: 45, // Reduced height for the input boxes
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10, // Rounded corners
+    paddingLeft: 15, // Added padding for the input text
+    marginBottom: 15,
+    backgroundColor: '#fff', // White background for the input
+    shadowColor: '#000', // Subtle shadow effect
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 3, // Slight elevation for input fields
+  },
+});
