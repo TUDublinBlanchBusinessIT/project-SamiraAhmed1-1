@@ -9,6 +9,7 @@ import MessagesScreen from './components/MessagesScreen';
 import ConversationScreen from './components/ConversationScreen';
 import ProfileScreen from './components/ProfileScreen';
 import EditProfileScreen from './components/EditProfileScreen';
+import ForgotPasswordScreen from './components/ForgotPasswordScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Screen name="Conversation" component={ConversationScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

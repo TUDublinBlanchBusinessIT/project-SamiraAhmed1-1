@@ -22,8 +22,8 @@ export default function RegisterScreen() {
   };
 
   const handleForgotPassword = () => {
-    // Add forgot password logic here
     alert('Redirecting to Forgot Password page');
+    navigation.navigate('ForgotPassword');
   };
 
   const handleLogout = () => {
