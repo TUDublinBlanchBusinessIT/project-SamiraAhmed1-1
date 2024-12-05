@@ -27,7 +27,7 @@ export default function Homescreen({ route, navigation }) {
         style={styles.profileIconContainer}
         onPress={() => navigation.navigate('Profile')} // Navigate to Profile Screen
       >
-        <Icon name="user" size={30} color="#000" />
+        <Icon name="user" size={30} color="#fff" />
       </TouchableOpacity>
 
       {/* Welcome Message */}
@@ -75,47 +75,81 @@ export default function Homescreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#ffffff' },
+  container: { 
+    flex: 1, 
+    padding: 20, 
+    backgroundColor: '#E1F5FE', // Light blue background
+  },
   profileIconContainer: {
     position: 'absolute', // Position the icon in the top-right corner
     top: 20,
     right: 20,
-    backgroundColor: '#fff',
-    padding: 10,
+    backgroundColor: '#4CAF50', // Green background for profile icon
+    padding: 12,
     borderRadius: 50,
     shadowColor: '#000',
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 5,
   },
-  welcomeText: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
+  welcomeText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#00796B', // Teal color for text
+  },
   searchBar: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: '#00796B',
     borderWidth: 1,
     borderRadius: 8,
     paddingLeft: 10,
     marginBottom: 20,
+    backgroundColor: '#fff',
   },
   itemContainer: {
     flexDirection: 'row',
-    padding: 10,
+    padding: 15,
     marginBottom: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#B0BEC5', // Light grey border color
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
-  itemImage: { width: 60, height: 60, borderRadius: 8, marginRight: 10 },
-  itemDetails: { flex: 1, justifyContent: 'center' },
-  itemName: { fontSize: 18, fontWeight: 'bold' },
-  itemDistance: { fontSize: 14, color: '#777', marginBottom: 5 },
+  itemImage: { 
+    width: 60, 
+    height: 60, 
+    borderRadius: 8, 
+    marginRight: 10 
+  },
+  itemDetails: { 
+    flex: 1, 
+    justifyContent: 'center' 
+  },
+  itemName: { 
+    fontSize: 18, 
+    fontWeight: 'bold', 
+    color: '#00796B' 
+  },
+  itemDistance: { 
+    fontSize: 14, 
+    color: '#607D8B', 
+    marginBottom: 5 
+  },
   requestButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#FF9800', // Orange background for button
     paddingVertical: 5,
     paddingHorizontal: 15,
     borderRadius: 5,
     alignSelf: 'flex-start',
   },
-  requestButtonText: { color: '#fff', fontSize: 14, fontWeight: 'bold' },
+  requestButtonText: { 
+    color: '#fff', 
+    fontSize: 14, 
+    fontWeight: 'bold' 
+  },
 });
