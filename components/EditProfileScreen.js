@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
 
 // Star component to display the star rating
 const StarRating = ({ rating }) => {
@@ -48,6 +48,11 @@ export default function EditProfileScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      {/* Profile Icon */}
+      <View style={styles.profileIconContainer}>
+        <Image source={require('../assets/profile-placeholder.png')} style={styles.profileImage} />
+      </View>
+
       <Text style={styles.title}>Edit Profile</Text>
 
       {/* Name Input */}
@@ -92,28 +97,45 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'center',
-    backgroundColor: '#b0e0e6', // Baby blue background color
+    backgroundColor: '#E1F5FE', // Light blue background
+  },
+  profileIconContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 3,
+    borderColor: '#fff',
+    marginBottom: 10,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: '#388E3C',
   },
   input: {
     height: 45,
     borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 5,
-    paddingLeft: 10,
+    borderRadius: 25,
+    paddingLeft: 15,
     marginBottom: 20,
+    backgroundColor: '#fff',
+    fontSize: 16,
+    color: '#333',
   },
   saveButton: {
     backgroundColor: '#4CAF50',
-    paddingVertical: 10,
+    paddingVertical: 12,
     borderRadius: 25,
     marginBottom: 20,
     alignItems: 'center',
+    elevation: 5,
   },
   saveButtonText: {
     color: '#fff',
@@ -122,9 +144,10 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     backgroundColor: '#FF5733',
-    paddingVertical: 10,
+    paddingVertical: 12,
     borderRadius: 25,
     alignItems: 'center',
+    elevation: 5,
   },
   cancelButtonText: {
     color: '#fff',
@@ -136,6 +159,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
+    color: '#333',
   },
   starContainer: {
     flexDirection: 'row',
@@ -147,7 +171,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   halfStar: {
-    color: '#FFD700',
+    color: '#FFD700', // Gold color for half stars
     fontSize: 30,
   },
   emptyStar: {

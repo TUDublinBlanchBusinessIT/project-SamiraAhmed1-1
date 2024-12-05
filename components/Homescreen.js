@@ -113,7 +113,7 @@ export default function Homescreen({ route, navigation }) {
 
       {/* Button to navigate to Request Screen */}
       <Button
-        title="Go to Request Screen"
+        title="Go to Requests"
         onPress={() => navigation.navigate('Request', { items: items })} // Pass the items with status to the RequestScreen
       />
     </View>
