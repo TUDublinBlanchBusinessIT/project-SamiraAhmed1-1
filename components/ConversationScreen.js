@@ -5,7 +5,7 @@ export default function ConversationScreen({ route }) {
   const { message } = route.params; // Get the message details passed as a param
   const [conversation, setConversation] = useState([
     { id: '1', sender: message.sender, content: message.preview, timestamp: '2:45 PM' },
-    { id: '2', sender: 'You', content: 'Thanks! When can I pick it up?', timestamp: '2:50 PM' },
+    { id: '2', sender: 'You', content: 'Yes! What time?', timestamp: '2:50 PM' },
     { id: '3', sender: message.sender, content: 'Anytime after 4 PM today.', timestamp: '2:55 PM' },
   ]);
 
