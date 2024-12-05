@@ -5,7 +5,7 @@ import RegisterScreen from './components/registerscreen';
 import Homescreen from './components/Homescreen';
 import SignUpScreen from './components/SignUpScreen';
 import RequestScreen from './components/RequestScreen';
-import  MessagesScreen from './components/MessagesScreen';
+import MessagesScreen from './components/MessagesScreen';
 import ConversationScreen from './components/ConversationScreen';
 import ProfileScreen from './components/ProfileScreen';
 import EditProfileScreen from './components/EditProfileScreen';
@@ -24,9 +24,6 @@ export default function App() {
         <Stack.Screen name="Conversation" component={ConversationScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-        
-
-
       </Stack.Navigator>
     </NavigationContainer>
   );
