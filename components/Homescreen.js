@@ -2,22 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library
 
-// Function to display stars based on rating
-const renderStars = (rating) => {
-  let stars = [];
-  for (let i = 0; i < 5; i++) {
-    stars.push(
-      <Icon
-        key={i}
-        name={i < rating ? 'star' : 'star-o'}
-        size={18}
-        color="#FFD700"
-      />
-    );
-  }
-  return stars;
-};
-
 export default function Homescreen({ route, navigation }) {
   const { username } = route.params || {}; // Extract username
 
@@ -30,6 +14,7 @@ export default function Homescreen({ route, navigation }) {
       image: require('../assets/charger.jpg'),
       owner: 'John Doe',
       trustRating: 4,
+      requested: false, // Track request status
     },
     {
       id: '2',
@@ -38,6 +23,7 @@ export default function Homescreen({ route, navigation }) {
       image: require('../assets/usb.jpg'),
       owner: 'Jane Smith',
       trustRating: 5,
+      requested: false, // Track request status
     },
     {
       id: '3',
@@ -46,6 +32,7 @@ export default function Homescreen({ route, navigation }) {
       image: require('../assets/calculator.jpg'),
       owner: 'Sam Wilson',
       trustRating: 3,
+      requested: false, // Track request status
     },
   ]);
 
@@ -56,6 +43,14 @@ export default function Homescreen({ route, navigation }) {
   const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const handleRequest = (itemId) => {
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item.id === itemId ? { ...item, requested: true } : item
+      )
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -92,40 +87,46 @@ export default function Homescreen({ route, navigation }) {
               <Text style={styles.itemOwner}>Owner: {item.owner}</Text>
               <Text style={styles.itemDistance}>Distance: {item.distance}</Text>
               <View style={styles.ratingContainer}>
-                {renderStars(item.trustRating)} {/* Trust rating with stars */}
+                {/* Display stars for the trust rating */}
+                {[...Array(5)].map((_, index) => (
+                  <Icon
+                    key={index}
+                    name={index < item.trustRating ? 'star' : 'star-o'}
+                    size={18}
+                    color="#FFD700"
+                  />
+                ))}
               </View>
               <TouchableOpacity
-                style={styles.requestButton}
-                onPress={() => alert(`Requested ${item.name} from ${item.owner}!`)} // Example action
+                style={[styles.requestButton, { backgroundColor: item.requested ? '#B0BEC5' : '#388E3C' }]}
+                onPress={() => handleRequest(item.id)}
+                disabled={item.requested} // Disable button if already requested
               >
-                <Text style={styles.requestButtonText}>Request</Text>
+                <Text style={styles.requestButtonText}>
+                  {item.requested ? 'Pending' : 'Request'}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
         )}
-        ListEmptyComponent={<Text>No items found.</Text>} // Debug empty list
       />
 
       {/* Button to navigate to Request Screen */}
       <Button
         title="Go to Request Screen"
-        onPress={() => navigation.navigate('Request')} // Ensure 'Request' matches the screen name in App.js
+        onPress={() => navigation.navigate('Request', { items: items })} // Pass the items with status to the RequestScreen
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 20, 
-    backgroundColor: '#E1F5FE', // Light blue background
-  },
+  container: { flex: 1, padding: 20, backgroundColor: '#E1F5FE' },
   profileIconContainer: {
-    position: 'absolute', // Position the icon in the top-right corner
+    position: 'absolute',
     top: 20,
     right: 20,
-    backgroundColor: '#4CAF50', // Green background for profile icon
+    backgroundColor: '#4CAF50',
     padding: 12,
     borderRadius: 50,
     shadowColor: '#000',
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#00796B', // Teal color for text
+    color: '#00796B',
   },
   searchBar: {
     height: 40,
@@ -155,51 +156,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#B0BEC5', // Light grey border color
+    borderColor: '#B0BEC5',
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
   },
-  itemImage: { 
-    width: 60, 
-    height: 60, 
-    borderRadius: 8, 
-    marginRight: 10 
-  },
-  itemDetails: { 
-    flex: 1, 
-    justifyContent: 'center' 
-  },
-  itemName: { 
-    fontSize: 18, 
-    fontWeight: 'bold', 
-    color: '#00796B' 
-  },
-  itemOwner: { 
-    fontSize: 14, 
-    color: '#607D8B', 
-    marginBottom: 5 
-  },
-  itemDistance: { 
-    fontSize: 14, 
-    color: '#607D8B', 
-    marginBottom: 5 
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    marginBottom: 5,
-  },
-  requestButton: {
-    backgroundColor: '#FF9800', // Orange background for button
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-    alignSelf: 'flex-start',
-  },
-  requestButtonText: { 
-    color: '#fff', 
-    fontSize: 14, 
-    fontWeight: 'bold' 
-  },
+  itemImage: { width: 60, height: 60, borderRadius: 8, marginRight: 10 },
+  itemDetails: { flex: 1, justifyContent: 'center' },
+  itemName: { fontSize: 18, fontWeight: 'bold', color: '#00796B' },
+  itemOwner: { fontSize: 14, color: '#607D8B', marginBottom: 5 },
+  itemDistance: { fontSize: 14, color: '#607D8B', marginBottom: 5 },
+  ratingContainer: { flexDirection: 'row', marginBottom: 5 },
+  requestButton: { paddingVertical: 5, paddingHorizontal: 15, borderRadius: 5, alignSelf: 'flex-start' },
+  requestButtonText: { color: '#fff', fontSize: 14, fontWeight: 'bold' },
 });

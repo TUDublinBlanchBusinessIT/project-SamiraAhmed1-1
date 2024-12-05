@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, Button, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library
 
-export default function RequestScreen({ navigation }) {
-  const [items, setItems] = useState([
-    { id: '1', name: 'Laptop Charger', distance: '1.2km', image: require('../assets/laptopcharger.jpg') },
-    { id: '2', name: 'Power Bank', distance: '0.8km', image: require('../assets/powerbank.jpg') },
-    { id: '3', name: 'Headphones', distance: '0.5km', image: require('../assets/headphones.jpg') },
-  ]);
+export default function RequestScreen({ route, navigation }) {
+  const { items } = route.params; // Get items with their requested status from Homescreen
 
-  const handleRequest = (itemName) => {
-    alert(`Requested ${itemName}!`);
+  // Navigate to Messages Screen
+  const goToMessages = () => {
+    navigation.navigate('Messages');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Items Available for Request</Text>
+      <Text style={styles.header}>Items Requested</Text>
 
+      {/* FlatList to display items and their request status */}
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
@@ -24,43 +23,91 @@ export default function RequestScreen({ navigation }) {
             <Image source={item.image} style={styles.itemImage} />
             <View style={styles.itemDetails}>
               <Text style={styles.itemName}>{item.name}</Text>
+              <Text style={styles.itemOwner}>Owner: {item.owner}</Text>
               <Text style={styles.itemDistance}>Distance: {item.distance}</Text>
-              <TouchableOpacity style={styles.requestButton} onPress={() => handleRequest(item.name)}>
-                <Text style={styles.requestButtonText}>Request</Text>
-              </TouchableOpacity>
+              <Text style={styles.itemStatus}>
+                {item.requested ? 'Status: Pending' : 'Status: Available'}
+              </Text>
             </View>
           </View>
         )}
       />
 
-      {/* Navigate to Messages Screen */}
-      <Button
-        title="Go to Messages"
-        onPress={() => navigation.navigate('Messages')}
-        color="#007BFF"
-      />
+      {/* Button to navigate to Messages Screen */}
+      <TouchableOpacity
+        style={styles.messagesButton}
+        onPress={goToMessages}
+      >
+        <Text style={styles.messagesButtonText}>Go to Messages</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
-  header: { fontSize: 22, fontWeight: 'bold', textAlign: 'center', marginBottom: 15 },
-  itemContainer: { flexDirection: 'row', padding: 10, marginBottom: 10, backgroundColor: '#f9f9f9', borderRadius: 8, borderWidth: 1, borderColor: '#ddd' },
-  itemImage: { width: 60, height: 60, borderRadius: 8, marginRight: 10 },
-  itemDetails: { flex: 1, justifyContent: 'center' },
-  itemName: { fontSize: 18, fontWeight: 'bold' },
-  itemDistance: { fontSize: 14, color: '#777', marginBottom: 5 },
-  requestButton: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 5,
-    paddingHorizontal: 10, // Smaller width
-    borderRadius: 5,
-    alignSelf: 'flex-start',
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#F1F8E9',
   },
-  requestButtonText: {
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#388E3C',
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    padding: 15,
+    marginBottom: 15,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#B0BEC5',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  itemImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 8,
+    marginRight: 15,
+  },
+  itemDetails: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  itemName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#388E3C',
+  },
+  itemOwner: {
+    fontSize: 14,
+    color: '#757575',
+  },
+  itemDistance: {
+    fontSize: 14,
+    color: '#757575',
+    marginBottom: 10,
+  },
+  itemStatus: {
+    fontSize: 14,
+    color: '#FF5722', // Red color for status text
+  },
+  messagesButton: {
+    backgroundColor: '#0288D1', // Blue color for "Go to Messages" button
+    paddingVertical: 12,
+    borderRadius: 25,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  messagesButtonText: {
     color: '#fff',
-    fontSize: 12, // Smaller font size
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
